@@ -1,0 +1,58 @@
+shop = {
+    'яблоко': 50,
+    'банан': 70,
+    'апельсин': 60,
+    'молоко':100,
+    'кофе': 150,
+    'сметана': 50,
+    'помидор': 10,
+    'сникерс': 60,
+    'мороженое':100,
+    'чипсеки': 50
+}
+
+# Запрос у пользователя списка покупок
+def make_shopping_list():
+    shopping_list = {}
+    while True:
+        print('список продуктов:', shop)
+        item = input('Введите товар (или "стоп" для завершения покупок): ')
+        if item == 'стоп':
+            break
+        elif item in shop:
+            quantity = int(input('Введите количество: '))
+            shopping_list[item] = quantity
+        else:
+            print('Такого товара нет в магазине')
+    return shopping_list
+
+# Расчет суммы покупки
+def calculate_total(shopping_list):
+    total = 0
+    for item, quantity in shopping_list.items():
+        total += shop[item] * quantity
+    return total
+
+# Запрос у пользователя о наличии скидки
+discount = input('У вас есть скидка? (да/нет/промокод): ')
+
+# Получение списка покупок и расчет суммы
+print('Добро пожаловать в мини-магазин!')
+shopping_list = make_shopping_list()
+total = calculate_total(shopping_list)
+
+# Применение скидки при наличии
+if discount == 'да':
+    total *= 0.95  # Скидка 5%
+elif discount == 'промокод':
+    promo = input('введите промокод:')
+    if promo == '2024':
+        total *= 0.90  # скидка 10 % 
+# Вывод суммы к оплате
+print(f'Общая сумма к оплате: {total} рублей')
+tip_percentage = float(input("Введите процент чаевых (например, 10 для 10%): "))
+
+tip_amount = total * tip_percentage / 100
+
+print(f"Сумма чаевых: {tip_amount} руб.")
+print('итоговый счет:',total+tip_amount)
